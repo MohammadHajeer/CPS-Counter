@@ -8,7 +8,9 @@ let cpsBox = document.querySelector(".counter .cps");
 let countCps = document.querySelector(".counter .cps .count");
 let seconds = 5;
 let buttons = document.querySelectorAll("ul li");
-// counter.innerHTML = ""
+
+let mediaQuery = window.matchMedia("(max-width: 767px)");
+
 //Lock the CPS Box
 cpsBox.style.pointerEvents = "none";
 
@@ -23,12 +25,9 @@ buttons.forEach((button) => {
   };
 });
 
-let fontSize = 3;
-
 startAndCountingButton.onclick = () => {
   //Return font size to normal
   countCps.style.fontSize = "3rem";
-  fontSize = 3;
   //Return cps value to 0
   countCps.innerHTML = 0;
   //Unlock the CPS Box
@@ -58,10 +57,15 @@ startAndCountingButton.onclick = () => {
     }
   }, 1000);
 };
-
+console.log(mediaQuery);
 function finish() {
-  counter.style.transform = "rotate(360deg)";
   counterFinishState.classList.add("done");
+
+  if (mediaQuery.matches) {
+    counter.style.transform = "rotateX(360deg)";
+  } else {
+    counter.style.transform = "rotate(360deg)";
+  }
 
   setTimeout((e) => {
     counter.style.transform = "rotate(0deg)";
@@ -73,13 +77,16 @@ cpsBox.onclick = () => {
   countCps.innerHTML++;
 
   if (countCps.innerHTML % 10 === 0) {
-    fontSize++;
     countCps.style.color = "#2196f3";
-    if (fontSize < 13) {
-      countCps.style.fontSize = fontSize + "rem";
+    if (mediaQuery.matches) {
+      countCps.style.fontSize = "2rem";
+    } else {
+      countCps.style.fontSize = "5rem";
     }
-  } else {
-    countCps.style.color = "rgba(255, 255, 255, 0.421)";
+    setTimeout((e) => {
+      countCps.style.fontSize = "3rem";
+      countCps.style.color = "rgba(255, 255, 255, 0.421)";
+    }, 300);
   }
 
   let ripple = document.createElement("span");
@@ -94,7 +101,7 @@ cpsBox.onclick = () => {
 };
 
 function calculateCPS() {
-  let cps = +countCps.innerHTML / seconds;
+  let cps = (+countCps.innerHTML / seconds).toFixed(2);
   cpsMath.innerHTML = cps;
 
   if (cps < 5) {
