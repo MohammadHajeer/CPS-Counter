@@ -1,0 +1,217 @@
+* {
+  margin: 0;
+  padding: 0;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #1b1b1b;
+  user-select: none;
+}
+
+.loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border: 15px solid;
+  border-color: #2196f3 transparent #2196f3 transparent;
+  z-index: 1111;
+  animation: loading 2s infinite linear;
+}
+
+@media (max-width: 767px) {
+  .loading {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+@keyframes loading {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+    border: 15px solid;
+    border-color: #2196f3 transparent #2196f3 transparent;
+  }
+  50% {
+    transform: translate(-50%, -50%) rotate(360deg);
+    border: 20px solid;
+    border-color: transparent #2196f3 transparent #2196f3;
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(720deg);
+    border: 15px solid;
+    border-color: #2196f3 transparent #2196f3 transparent;
+  }
+}
+
+.counter {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+  text-align: center;
+  padding: 20px 0;
+  color: white;
+  height: 600px;
+  max-height: 100%;
+  box-shadow: 0 0 5px #2196f3 inset;
+  padding: 10px;
+  position: relative;
+  overflow: hidden;
+  transition: 0.5s;
+  /* transform: rotateY(180deg) */
+}
+
+.counter::before {
+  content: "";
+  position: absolute;
+  right: 50%;
+  width: 100px;
+  height: 100%;
+  background-color: rgba(0, 238, 255, 0.39);
+  z-index: -1;
+  transform: skew(40deg);
+}
+
+.counter .finish {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: inherit;
+  background-color: #082a4691;
+  z-index: 11;
+  transition: 0.5s;
+  transform: scaleY(0);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  line-height: 2.4;
+  transition-delay: 1s;
+}
+
+.counter .finish h2,
+p {
+  letter-spacing: 5px;
+  padding: 5px;
+}
+
+.counter .done {
+  transform: scaleY(1);
+}
+
+.counter h1 {
+  color: #2196f3;
+}
+
+.counter .time {
+  list-style: none;
+  display: flex;
+  justify-content: space-evenly;
+  gap: 10px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.counter .time li {
+  padding: 10px;
+  width: 60px;
+  box-shadow: 0 0 5px black inset;
+  transition: 0.5s;
+  cursor: pointer;
+}
+
+.counter .time li:hover {
+  background-color: black;
+  color: #2196f3;
+}
+
+.counter .time .active {
+  background-color: black;
+  color: #2196f3;
+}
+
+.counter .start {
+  color: white;
+  padding: 10px;
+  font-weight: bold;
+  font-size: 1.2rem;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.counter .start::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: white;
+  box-shadow: 0 0 150px #2196f3 inset;
+  z-index: -1;
+  filter: blur(40px);
+  transition: 0.5s;
+}
+
+.counter .start:hover:before {
+  filter: blur(0px);
+  background-color: rgba(0, 238, 255, 0.39);
+  box-shadow: 0 0 15px #2196f3 inset;
+}
+
+.counter .cps {
+  background-color: rgba(0, 0, 0, 0.595);
+  height: 300px;
+  transition: 0.5s;
+  position: relative;
+  overflow: hidden;
+  text-align: right;
+}
+
+.counter .cps .ripple {
+  width: 500px;
+  height: 500px;
+  position: absolute;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  background-color: rgba(33, 149, 243, 0.747431);
+  transform: translate(-50%, -50%) scale(0);
+  animation: rippleEffect 1s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes rippleEffect {
+  100% {
+    transform: translate(-50%, -50%) scale(4);
+    opacity: 0;
+  }
+}
+
+.counter .cps .count {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 3rem;
+  color: rgba(255, 255, 255, 0.421);
+  transition: 0.5s;
+  pointer-events: none;
+}
+
+.counter .cps .count::selection {
+  background: none;
+}
